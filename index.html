@@ -80,6 +80,56 @@
 
         // Add the graphics to the graphics layer
         graphicsLayer.add(pointGraphic);
+
+        // First create a line geometry (this is Kearny Street in San Francisco)
+  const polyline = {
+    type: "polyline", // autocasts as new Polyline()
+    paths: [[-122.404453, 37.792652], [-122.404078, 37.790794], [-122.403515, 37.787965]]
+  };
+
+  // Create a symbol for drawing the line
+  const lineSymbol = {
+    type: "simple-line", // autocasts as SimpleLineSymbol()
+    color: [0, 0, 128],
+    width: 4
+  };
+
+  // Create an object for storing attributes related to the line
+  const lineAtt = {
+    Name: "Kearny Street",
+    Owner: "California",
+    Length: "1.2 miles"
+  };
+
+  const polylineGraphic = new Graphic({
+    geometry: polyline,
+    symbol: lineSymbol,
+    attributes: lineAtt,
+    popupTemplate: {
+      // autocasts as new PopupTemplate()
+      title: "{Name}",
+      content: [
+        {
+          type: "fields",
+          fieldInfos: [
+            {
+              fieldName: "Name"
+            },
+            {
+              fieldName: "Owner"
+            },
+            {
+              fieldName: "Length"
+            }
+          ]
+        }
+      ]
+    }
+  });
+
+  // Add the line graphic to the view's GraphicsLayer
+  view.graphics.add(polylineGraphic);
+  
     });
   </script>
 
