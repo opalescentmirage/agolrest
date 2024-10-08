@@ -171,10 +171,27 @@
     // Add the polygon graphic to the view's GraphicsLayer
     graphicsLayer.add(polygonGraphic);
 
+    // Define a pop-up for usaeduLayer
+    const popupEduusa = {
+          "title": "University Information",
+          "content": `
+            <b>Name:</b> {INSTNM}<br>
+            <b>Website URL:</b> {WEBADDR}<br>
+            <b>University Hospital:</b> {HOSPITAL}<br>
+            <b>Institution Size:</b> {INSTSIZE}<br>
+            <b>Degree Years Offered:</b> {ICLEVEL}<br>
+            <img src="https://www.freevector.com/uploads/vector/preview/28149/EducationBackground_Preview_02.jpg" alt="University Image" style="width:100%;height:auto;">
+          `
+        }
+
     //adding the constructor for the feature layer
     const usaeduLayer = new FeatureLayer({
-    url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer"
-    });
+    url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
+
+    //adding the popup here
+    outFields: ["INSTNM", "WEBADDR", "HOSPITAL", "INSTSIZE", "ICLEVEL"],
+    popupTemplate: popupEduusa
+        });
   
     map.add(usaeduLayer);
 
