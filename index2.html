@@ -205,35 +205,14 @@
             width: "18px",
             height: "18px"
           }
-        };
-
-        // Const to make the airport labels
-        const airportLabels = {
-          symbol: {
-            type: "text",
-            color: "#FFFFFF",
-            haloColor: "#5E8D74",
-            haloSize: "2px",
-            font: {
-              size: "12px",
-              family: "Noto Sans",
-              style: "italic",
-              weight: "normal"
-            }
-          },
-          labelPlacement: "above-center",
-          labelExpressionInfo: {
-            expression: "$feature.Fac_Name"
-          }
-        };
+        };    
 
         // Adding the constructor for the airports
         const airportsLayer = new FeatureLayer({
           url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Jackie_Airports/FeatureServer",
-          outFields: ["Fac_Name", "Fac_Type"],
           renderer: airportRenderer, // Calling the icon
           definitionExpression: "Fac_Type = 'AIRPORT'", // Adding SQL to filter for airports
-          labelingInfo: [airportLabels] // Adding the labels
+
         });
 
         map.add(airportsLayer);
