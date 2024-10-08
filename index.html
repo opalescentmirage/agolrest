@@ -207,7 +207,7 @@
       }
 
       //const to make the airport labels
-    const airportsLabels = {
+    const airportLabels = {
     symbol: {
     type: "text",
     color: "#FFFFFF",
@@ -231,7 +231,7 @@
     url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Jackie_Airports/FeatureServer",
     renderer: airportRenderer, //calling the icon
     definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
-    labelingInfo: [airportsLabels] //adding the labels
+    labelingInfo: [airportLabels] //adding the labels
 
     });
     map.add(airportsLayer);
