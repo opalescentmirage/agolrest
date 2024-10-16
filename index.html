@@ -23,9 +23,12 @@
     "esri/layers/GraphicsLayer",
     
     //adding in the module for feature layer
-    "esri/layers/FeatureLayer"
+    "esri/layers/FeatureLayer",
 
-    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
+    //adding editor widget
+    "esri/widgets/Editor",
+
+    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor) {
 
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurEBCF4Df63a-YurcgYiKsA257-YwJjUZ7VmQmAf85Pv0N-vjRkwILml3-7mTW_bBjRL3lCmF1vJ5g8SPl43UaPmotCTJQDQY5X_HFu2Y4dwpJl1K3wq_PQYELfUc6ZosZgWTGjoabmlVuSkHDgazJiPvDl3JS452H90ska8wAldmTBIRv_U0xunLhsHSNlpAsmsMouxm0JNzkygmUhC7zxY.AT1_4I1ezPDs";
       const map = new Map({
@@ -238,6 +241,30 @@
     map.add(airportsLayer);
 
     //making my icon
+    const myAirportRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "passenger.png",
+          "width": "18px",
+          "height": "18px"
+        }
+    }
+
+    //adding the const for the feature layer
+    const myAirports = new FeatureLayer({
+    url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Jackies_Airports/FeatureServer",
+ 
+    //adding the popup here
+    outFields: ["AirportCode"],
+    renderer: myAirportRenderer //calling the icon
+
+    });
+
+    //adding the feature layer to the map
+    map.add(myAirports);
+
+    //making my icon
     const heliportRenderer = {
         "type": "simple",
         "symbol": {
@@ -278,6 +305,20 @@ const heliportLayer = new FeatureLayer({
     });
 
     map.add(heliportLayer);
+
+    // Set the point layer's LayerInfo
+  const pointInfos = {
+  layer: myAirports
+  }
+
+  // Begin Editor constructor
+  const editor = new Editor({
+ view: view,
+ layerInfos: [pointInfos]
+ }); // End Editor constructor
+
+  // Add the widget to the view
+  view.ui.add(editor, "top-right");
 
     });
   </script>
