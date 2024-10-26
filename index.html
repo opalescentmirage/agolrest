@@ -23,15 +23,9 @@
     "esri/layers/GraphicsLayer",
     
     //adding in the module for feature layer
-    "esri/layers/FeatureLayer",
+    "esri/layers/FeatureLayer"
 
-    //adding editor widget
-    "esri/widgets/Editor",
-
-    //adding legend
-    "esri/widgets/Legend"
-
-    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor, Legend) {
+    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
 
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurEBCF4Df63a-YurcgYiKsA2vvuf6xz3rCnP69jX7KfQU5eQUG1fbw978iW10HW_ASnUMX0KnM52PnUGVNimlIh91qNQ1DeQDSa4MBkVJao-G5fIaMCE87upe47UV0DiPgV-HHjRwb5N0hAGqyA9w4ZfoZJaxMa_2jcSz58Ac3tmYl_QBIAb9SduN12xx1iHJWLF0-JOBeoSk-zI3RxvChE4.AT1_nXaeHp6A";
       const map = new Map({
@@ -244,47 +238,6 @@
     map.add(airportsLayer);
 
     //making my icon
-    const myAirportRenderer = {
-        "type": "simple",
-        "symbol": {
-          "type": "picture-marker",
-          "url": "passenger.png",
-          "width": "18px",
-          "height": "18px"
-        }
-    }
-
-    const myAirportLabels = {
-      symbol: {
-    type: "text",
-    color: "#000000",
-    haloColor: "#5E8D74",
-    haloSize: "2px",
-    font: {
-      size: "10px",
-      family: "Noto Sans",
-      style: "italic",
-      weight: "normal"
-    }
-  },
-  labelPlacement: "below-center",
-  labelExpressionInfo: {
-    expression: "$feature.AirportCode"
-  }
-};
-    
-    //adding the const for the feature layer
-    const myAirports = new FeatureLayer({
-    url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Jackies_Airports/FeatureServer",
-    outFields: ["AirportCode"],
-    renderer: myAirportRenderer, //calling the icon
-    labelinginfo: [myAirportLabels], //adding the labels
-    });
-
-    //adding the feature layer to the map
-    map.add(myAirports);
-
-    //making my icon
     const heliportRenderer = {
         "type": "simple",
         "symbol": {
@@ -325,41 +278,6 @@ const heliportLayer = new FeatureLayer({
     });
 
     map.add(heliportLayer);
-
-    // Set the point layer's LayerInfo
-  const pointInfos = {
-  layer: myAirports
-  }
-
-  const legend = new Legend({
-  view: view,
-  layerInfos: [
-    {
-      layer: myAirports,
-      title: "Selected Airports"
-    },
-    {
-      layer: airportsLayer,
-      title: "Airports"
-    },
-    {
-      layer: heliportLayer,
-      title: "Heliports"
-    }
-  ]
-  });
-
-  // Begin Editor constructor
-  const editor = new Editor({
- view: view,
- layerInfos: [pointInfos]
- }); // End Editor constructor
-
-  // Add the widget to the view
-  view.ui.add(editor, "top-right");
-
-   // Add widget to the bottom right corner of the view
-   view.ui.add(legend, "bottom-right");
 
     });
   </script>
