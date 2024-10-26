@@ -28,7 +28,10 @@
     //adding editor widget
     "esri/widgets/Editor",
 
-    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor) {
+    //adding legend
+    "esri/widgets/Legend"
+
+    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor, Legend) {
 
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurEBCF4Df63a-YurcgYiKsA2vvuf6xz3rCnP69jX7KfQU5eQUG1fbw978iW10HW_ASnUMX0KnM52PnUGVNimlIh91qNQ1DeQDSa4MBkVJao-G5fIaMCE87upe47UV0DiPgV-HHjRwb5N0hAGqyA9w4ZfoZJaxMa_2jcSz58Ac3tmYl_QBIAb9SduN12xx1iHJWLF0-JOBeoSk-zI3RxvChE4.AT1_nXaeHp6A";
       const map = new Map({
@@ -245,20 +248,37 @@
         "type": "simple",
         "symbol": {
           "type": "picture-marker",
-          "url": "black_airplane.png",
+          "url": "passenger.png",
           "width": "18px",
           "height": "18px"
         }
     }
 
+    const myAirportLabels = {
+      symbol: {
+    type: "text",
+    color: "#000000",
+    haloColor: "#5E8D74",
+    haloSize: "2px",
+    font: {
+      size: "10px",
+      family: "Noto Sans",
+      style: "italic",
+      weight: "normal"
+    }
+  },
+  labelPlacement: "below-center",
+  labelExpressionInfo: {
+    expression: "$feature.AirportCode"
+  }
+};
+    
     //adding the const for the feature layer
     const myAirports = new FeatureLayer({
     url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Jackies_Airports/FeatureServer",
- 
-    //adding the popup here
     outFields: ["AirportCode"],
-    renderer: myAirportRenderer //calling the icon
-
+    renderer: myAirportRenderer, //calling the icon
+    labelinginfo: [myAirportLabels], //adding the labels
     });
 
     //adding the feature layer to the map
@@ -311,6 +331,24 @@ const heliportLayer = new FeatureLayer({
   layer: myAirports
   }
 
+  const legend = new Legend({
+  view: view,
+  layerInfos: [
+    {
+      layer: myAirports,
+      title: "Selected Airports"
+    },
+    {
+      layer: airportsLayer,
+      title: "Airports"
+    },
+    {
+      layer: heliportLayer,
+      title: "Heliports"
+    }
+  ]
+  });
+
   // Begin Editor constructor
   const editor = new Editor({
  view: view,
@@ -319,6 +357,9 @@ const heliportLayer = new FeatureLayer({
 
   // Add the widget to the view
   view.ui.add(editor, "top-right");
+
+   // Add widget to the bottom right corner of the view
+   view.ui.add(legend, "bottom-right");
 
     });
   </script>
