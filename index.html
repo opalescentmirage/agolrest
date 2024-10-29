@@ -280,7 +280,7 @@
     //adding the popup here
     outFields: ["AirportCode"],
     renderer: myAirportRenderer, //calling the icon
-    labelingInfo: [airportLabels2] //adding the labels
+    labelingInfo: [airportlabels2] //adding the labels
 
     });
 
@@ -360,7 +360,7 @@ const heliportLayer = new FeatureLayer({
 
     // Add the widget to the view
   view.ui.add(editor, "top-right");
-    
+  view.ui.add(legend, "bottom-right");
   });
   </script>
 
