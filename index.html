@@ -345,7 +345,27 @@ const heliportLayer = new FeatureLayer({
   // Add the widget to the view
   view.ui.add(editor, "top-right");
 
+  //begin editor constructor
+  const legend = new Legend({
+  view: view,
+  layerInfos: [
+    {
+      layer: myAirports,
+      title: "My Airports"
+    },
+    {
+      layer: airportsLayer,
+      title: "Airports"
+    },
+    {
+      layer: heliportLayer,
+      title: "Heliports"
+    }]
     });
+    
+    //adding legend to the map
+    view.ui.add(legend, "bottom-right");
+  });
   </script>
 
   <!-- css to make a full screen map -->
