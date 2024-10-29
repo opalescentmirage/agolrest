@@ -275,9 +275,7 @@
 
     //adding the const for the feature layer
     const myAirports = new FeatureLayer({
-    url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Jackies_Airports/FeatureServer",
- 
-    
+    url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Jackies_Airports/FeatureServer",   
     
     //adding the popup here
     outFields: ["AirportCode"],
@@ -342,9 +340,6 @@ const heliportLayer = new FeatureLayer({
  layerInfos: [pointInfos]
  }); // End Editor constructor
 
-  // Add the widget to the view
-  view.ui.add(editor, "top-right");
-
   //begin editor constructor
   const legend = new Legend({
   view: view,
@@ -362,6 +357,9 @@ const heliportLayer = new FeatureLayer({
       title: "Heliports"
     }]
     });
+    
+    // Add the widget to the view
+  view.ui.add(editor, "top-right");
     
     //adding legend to the map
     view.ui.add(legend, "bottom-right");
